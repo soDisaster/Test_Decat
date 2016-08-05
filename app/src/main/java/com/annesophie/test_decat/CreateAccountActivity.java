@@ -16,11 +16,13 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        // Create account
+        // Next step
 
         buttonNext = (Button) findViewById(R.id.buttonNext);
 
     }
+
+
 
     public void goToNext(View v){
 
