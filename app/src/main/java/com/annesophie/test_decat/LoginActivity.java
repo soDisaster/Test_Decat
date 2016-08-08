@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -109,9 +108,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
 
-
-                final Intent intentHome;
-
                 // Login
 
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -132,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                                                     user = dataSnapshot.getValue(User.class);
                                                     firstname = user.getFirstname();
                                                     lastname = user.getLastname();
-                                                    Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
+                                                    final Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
                                                     Bundle extras = new Bundle();
                                                     extras.putString("EXTRA_FIRSTNAME", firstname);
                                                     extras.putString("EXTRA_LASTNAME", lastname);
