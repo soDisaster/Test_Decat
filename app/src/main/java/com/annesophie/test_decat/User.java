@@ -14,7 +14,6 @@ import java.util.Map;
 public class User {
 
     private String id, firstname, lastname, email, password, confirmPassword;
-    private DatabaseReference mDatabase;
 
     public User(String id, String firstname, String lastname, String email, String password, String confirmPassword) {
 
