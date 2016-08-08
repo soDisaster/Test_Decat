@@ -1,6 +1,5 @@
 package com.annesophie.test_decat;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
