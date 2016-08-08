@@ -121,30 +121,31 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
 
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, "Invalid user/password", Toast.LENGTH_LONG).show();
+                                } else {
+
+                                    String userID = mAuth.getCurrentUser().getUid();
+
+                                    mDatabase.child("users").child(userID).addListenerForSingleValueEvent(
+                                            new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                                                    user = dataSnapshot.getValue(User.class);
+                                                    firstname = user.getFirstname();
+                                                    lastname = user.getLastname();
+                                                    Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
+                                                    Bundle extras = new Bundle();
+                                                    extras.putString("EXTRA_FIRSTNAME", firstname);
+                                                    extras.putString("EXTRA_LASTNAME", lastname);
+                                                    intentHome.putExtras(extras);
+                                                    startActivity(intentHome);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+                                                    //Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                                                }
+                                            });
                                 }
-
-                                String userID = mAuth.getCurrentUser().getUid();
-
-                                mDatabase.child("users").child(userID).addListenerForSingleValueEvent(
-                                        new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
-                                                user = dataSnapshot.getValue(User.class);
-                                                firstname = user.getFirstname();
-                                                lastname = user.getLastname();
-                                                Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
-                                                Bundle extras = new Bundle();
-                                                extras.putString("EXTRA_FIRSTNAME", firstname);
-                                                extras.putString("EXTRA_LASTNAME", lastname);
-                                                intentHome.putExtras(extras);
-                                                startActivity(intentHome);
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-                                                //Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                                            }
-                                        });
                             }
                         });
 
