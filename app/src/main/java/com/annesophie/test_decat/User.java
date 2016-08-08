@@ -15,9 +15,12 @@ public class User {
 
     private String id, firstname, lastname, email, password, confirmPassword;
 
-    public User(String id, String firstname, String lastname, String email, String password, String confirmPassword) {
+    public User() {
 
-        this.id = id;
+    }
+
+    public User(String firstname, String lastname, String email, String password, String confirmPassword) {
+
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -28,13 +31,22 @@ public class User {
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("userID", id);
         result.put("firstname", firstname);
         result.put("lastname", lastname);
         result.put("email", email);
         result.put("password", password);
         result.put("confirmPassword", confirmPassword);
         return result;
+    }
+
+    public String getFirstname(){
+
+        return firstname;
+    }
+
+    public String getLastname(){
+
+        return lastname;
     }
 
 
