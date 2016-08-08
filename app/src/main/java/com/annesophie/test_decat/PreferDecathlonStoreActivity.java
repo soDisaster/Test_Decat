@@ -60,7 +60,7 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
     }
 
 
-    public void onClick(View v) {
+    public void onClick(final View v) {
 
         switch (v.getId()) {
             case R.id.buttonCreateAccount: {
@@ -82,6 +82,8 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
                                 else {
                                     writeNewUser(mAuth.getCurrentUser().getUid(), firstname, lastname, email, password, confirmPassword);
                                     Toast.makeText(PreferDecathlonStoreActivity.this, "Your account was created", Toast.LENGTH_LONG).show();
+                                    final Intent intentLogin = new Intent(v.getContext(), LoginActivity.class);
+                                    startActivity(intentLogin);
                                 }
                             }
                         });
