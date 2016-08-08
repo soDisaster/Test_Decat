@@ -32,47 +32,48 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:id="@+id/radioButtonGroupDecat">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Décathlon Campus"
+                android:text="Decathlon Campus"
                 android:id="@+id/radioButtonCampus"
                 android:layout_gravity="left|center" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Décathlon Englos"
+                android:text="Decathlon Englos"
                 android:id="@+id/radioButtonEnglos"
                 android:layout_gravity="left|center_horizontal" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:text="Décathlon C"
+                android:text="Decathlon C"
                 android:id="@+id/radioButtonC"
                 android:layout_gravity="left|center" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Décathlon D"
+                android:text="Decathlon D"
                 android:id="@+id/radioButtonD"
                 android:layout_gravity="left|center_horizontal" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Décathlon Pékin "
+                android:text="Decathlon Pékin "
                 android:id="@+id/radioButtonPekin"
                 android:layout_gravity="left|center" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Décathlon San Francisco"
+                android:text="Decathlon San Francisco"
                 android:id="@+id/radioButtonSanFrancisco"
                 android:layout_gravity="left|center" />
 
