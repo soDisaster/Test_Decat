@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".PreferDecathlonStoreActivity"></activity>
+        <activity android:name=".PreferDecathlonStoreActivity" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>

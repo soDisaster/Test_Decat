@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,16 +16,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements OnClickListener{
 
+    private Button buttonCreateAccount, buttonLogin;
+    private EditText editTextEmail, editTextPassword;
+    private String firstname, lastname, email, password;
 
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private Button buttonCreateAccount, buttonLogin;
-    private EditText editTextEmail, editTextPassword;
-    String email, password;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +40,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
 
         // Bouton pour la création d'un compte.
 
-        buttonCreateAccount = (Button)findViewById(R.id.buttonCreateAccount);
+        buttonCreateAccount = (Button) findViewById(R.id.buttonCreateAccount);
         buttonCreateAccount.setOnClickListener(this);
 
         // Bouton pour se loguer.
 
-        buttonLogin = (Button)findViewById(R.id.buttonLogin);
+        buttonLogin = (Button) findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
-        editTextEmail = (EditText)findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         /* Réagit quand :
@@ -57,8 +65,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
             }
         };
-
-
     }
 
     // Enregistrer un listener
@@ -81,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
         }
     }
 
-    public void onClick(View v) {
+    public void onClick(final View v) {
 
         switch (v.getId()) {
             case R.id.buttonCreateAccount: {
@@ -103,6 +109,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
 
+
+                final Intent intentHome;
+
                 // Login
 
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -114,7 +123,28 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                                     Toast.makeText(LoginActivity.this, "Invalid user/password", Toast.LENGTH_LONG).show();
                                 }
 
-                                // Futur code pour afficher les infos de l'user ->
+                                String userID = mAuth.getCurrentUser().getUid();
+
+                                mDatabase.child("users").child(userID).addListenerForSingleValueEvent(
+                                        new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                                                user = dataSnapshot.getValue(User.class);
+                                                firstname = user.getFirstname();
+                                                lastname = user.getLastname();
+                                                Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
+                                                Bundle extras = new Bundle();
+                                                extras.putString("EXTRA_FIRSTNAME", firstname);
+                                                extras.putString("EXTRA_LASTNAME", lastname);
+                                                intentHome.putExtras(extras);
+                                                startActivity(intentHome);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                //Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                                            }
+                                        });
                             }
                         });
 

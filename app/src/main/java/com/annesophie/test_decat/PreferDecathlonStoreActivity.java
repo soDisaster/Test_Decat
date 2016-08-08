@@ -95,13 +95,13 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
     public void writeNewUser(String userID, String firstname, String lastname, String email, String password, String confirmPassword) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        User user = new User(userID, firstname, lastname, email, password, confirmPassword);
+        User user = new User(firstname, lastname, email, password, confirmPassword);
 
-        String key = mDatabase.child("users").push().getKey();
+        mDatabase.child("users").push();
         Map<String, Object> userValues = user.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/users/" + key + "/", userValues);
+        childUpdates.put("/users/" + userID + "/", userValues);
 
         mDatabase.updateChildren(childUpdates);
 
