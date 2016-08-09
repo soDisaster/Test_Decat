@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /* Classe permettant la création finale d'un compte utilisateur
+   Etape 2/2
  * Le layout associé affiche des Radio Buttons permettant à l'utilisateur de choisir son Décathlon préféré.
  */
 
