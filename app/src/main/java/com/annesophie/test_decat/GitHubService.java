@@ -1,10 +1,5 @@
 package com.annesophie.test_decat;
 
-import com.firebase.client.core.Repo;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -13,5 +8,5 @@ import retrofit2.http.GET;
 public interface GitHubService {
 
     @GET("stores")
-    Call <ArrayList<Data>> groupListNameDecat();
+    Call<DataDecathlon> groupListNameDecat();
 }

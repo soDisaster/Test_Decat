@@ -1,11 +1,16 @@
 package com.annesophie.test_decat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -19,8 +24,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /* Classe permettant la création finale d'un compte utilisateur
    Etape 2/2
@@ -39,13 +51,13 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
     private String firstname, lastname, email, password, confirmPassword, preferDecat;
     private User user;
 
+    private Retrofit retrofit;
+    private GitHubService service;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prefer_decathlon_store);
-
-        buttonCreateAccount = (Button)findViewById(R.id.buttonCreateAccount);
-        buttonCreateAccount.setOnClickListener(this);
 
         /* On récupère les informations de CreateAccountActivity */
 
@@ -64,6 +76,44 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
             }
         };
 
+        radioGroupDecat = new RadioGroup(this);
+        radioGroupDecat.setOrientation(LinearLayout.VERTICAL);
+
+        buttonCreateAccount = (Button)findViewById(R.id.buttonCreateAccount);
+        buttonCreateAccount.setOnClickListener(this);
+
+        JsonDecathlon();
+
+    }
+
+    public void JsonDecathlon(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://dktmobile.oxylane.com/backofficemobile-server-mvc/service/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(GitHubService.class);
+        Call<DataDecathlon> call = service.groupListNameDecat();
+        call.enqueue(new Callback<DataDecathlon>() {
+            @Override
+            public void onResponse(Call<DataDecathlon> call, Response<DataDecathlon> response) {
+                ArrayList<String> storesNamesDecathlon = response.body().getData().getStoresDecathlonNames();
+                for (int i = 0; i < storesNamesDecathlon.size(); i++) {
+                    RadioButton rdbtn = new RadioButton(getApplicationContext());
+                    rdbtn.setText(storesNamesDecathlon.get(i));
+                    int textColor = Color.parseColor("#000000");
+                    rdbtn.setButtonTintList(ColorStateList.valueOf(textColor));
+                    rdbtn.setTextColor(textColor);
+                    radioGroupDecat.addView(rdbtn);
+                }
+                ((ViewGroup) findViewById(R.id.radioGroupDecat)).addView(radioGroupDecat);
+            }
+
+            @Override
+            public void onFailure(Call<DataDecathlon> call, Throwable t) {
+
+                System.out.println("Erreur");
+            }
+        });
     }
 
 
@@ -72,9 +122,6 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
         switch (v.getId()) {
             case R.id.buttonCreateAccount: {
 
-                /* Radio boutons en brut */
-
-                radioGroupDecat = (RadioGroup)findViewById(R.id.radioButtonGroupDecat);
                 radioButtonDecat = (RadioButton)findViewById(radioGroupDecat.getCheckedRadioButtonId());
                 preferDecat = radioButtonDecat.getText().toString();
 

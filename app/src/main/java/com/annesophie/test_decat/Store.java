@@ -512,4 +512,8 @@ public class Store {
         this.address = address;
     }
 
+    public String storeToString() {
+        return getId() + "" + getAddress();
+    }
+
 }
