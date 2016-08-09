@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-/* Page d'accueil (quand l'utilisateur s'est connecté) */
+/* Page d'accueil (quand l'utilisateur est connecté) */
 
 public class HomeActivity extends AppCompatActivity {
 
