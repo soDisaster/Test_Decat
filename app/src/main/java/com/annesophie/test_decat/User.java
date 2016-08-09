@@ -10,19 +10,20 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class User {
 
-    private String id, firstname, lastname, email, password, confirmPassword;
+    private String firstname, lastname, email, password, confirmPassword, namePreferDecat;
 
     public User() {
 
     }
 
-    public User(String firstname, String lastname, String email, String password, String confirmPassword) {
+    public User(String firstname, String lastname, String email, String password, String confirmPassword, String namePreferDecat) {
 
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.namePreferDecat = namePreferDecat;
 
     }
 
@@ -33,6 +34,7 @@ public class User {
         result.put("email", email);
         result.put("password", password);
         result.put("confirmPassword", confirmPassword);
+        result.put("namePreferDecat", namePreferDecat);
         return result;
     }
 
@@ -44,6 +46,11 @@ public class User {
     public String getLastname(){
 
         return lastname;
+    }
+
+    public String getNamePreferDecat(){
+
+        return namePreferDecat;
     }
 
 

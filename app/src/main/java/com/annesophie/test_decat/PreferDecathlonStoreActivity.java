@@ -48,7 +48,7 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
     private Button buttonCreateAccount;
     private RadioGroup radioGroupDecat;
     private RadioButton radioButtonDecat;
-    private String firstname, lastname, email, password, confirmPassword, preferDecat;
+    private String firstname, lastname, email, password, confirmPassword, namePreferDecat;
     private User user;
 
     private Retrofit retrofit;
@@ -123,7 +123,7 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
             case R.id.buttonCreateAccount: {
 
                 radioButtonDecat = (RadioButton)findViewById(radioGroupDecat.getCheckedRadioButtonId());
-                preferDecat = radioButtonDecat.getText().toString();
+                namePreferDecat = radioButtonDecat.getText().toString();
 
                 mAuth = FirebaseAuth.getInstance();
 
@@ -144,7 +144,7 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
 
                                     /* Enregistre les informations sur un utilisateur */
 
-                                    writeNewUser(mAuth.getCurrentUser().getUid(), firstname, lastname, email, password, confirmPassword);
+                                    writeNewUser(mAuth.getCurrentUser().getUid(), firstname, lastname, email, password, confirmPassword, namePreferDecat);
 
                                     Toast.makeText(PreferDecathlonStoreActivity.this, "Your account was created", Toast.LENGTH_LONG).show();
 
@@ -162,10 +162,10 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
 
     /* Enregistre les infos de l'utilisateur dans la base de données */
 
-    public void writeNewUser(String userID, String firstname, String lastname, String email, String password, String confirmPassword) {
+    public void writeNewUser(String userID, String firstname, String lastname, String email, String password, String confirmPassword, String namePreferDecat) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        User user = new User(firstname, lastname, email, password, confirmPassword);
+        User user = new User(firstname, lastname, email, password, confirmPassword, namePreferDecat);
 
         mDatabase.child("users").push();
         Map<String, Object> userValues = user.toMap();
