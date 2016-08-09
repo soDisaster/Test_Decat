@@ -40,6 +40,10 @@ dependencies {
     compile 'com.google.firebase:firebase-ads:9.4.0'
     compile 'com.google.android.gms:play-services-appindexing:9.4.0'
     compile 'com.firebase:firebase-client-android:2.5.2+'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

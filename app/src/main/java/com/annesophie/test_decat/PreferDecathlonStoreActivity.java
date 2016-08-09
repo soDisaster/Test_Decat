@@ -22,11 +22,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+/* Classe permettant la création finale d'un compte utilisateur
+ * Le layout associé affiche des Radio Buttons permettant à l'utilisateur de choisir son Décathlon préféré.
+ */
+
 public class PreferDecathlonStoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
     private AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
+
     private Button buttonCreateAccount;
     private RadioGroup radioGroupDecat;
     private RadioButton radioButtonDecat;
@@ -41,8 +46,9 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
         buttonCreateAccount = (Button)findViewById(R.id.buttonCreateAccount);
         buttonCreateAccount.setOnClickListener(this);
 
-        Intent intent = getIntent();
+        /* On récupère les informations de CreateAccountActivity */
 
+        Intent intent = getIntent();
         firstname = intent.getStringExtra("EXTRA_FIRSTNAME");
         lastname = intent.getStringExtra("EXTRA_LASTNAME");
         email = intent.getStringExtra("EXTRA_EMAIL");
@@ -65,6 +71,8 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
         switch (v.getId()) {
             case R.id.buttonCreateAccount: {
 
+                /* Radio boutons en brut */
+
                 radioGroupDecat = (RadioGroup)findViewById(R.id.radioButtonGroupDecat);
                 radioButtonDecat = (RadioButton)findViewById(radioGroupDecat.getCheckedRadioButtonId());
                 preferDecat = radioButtonDecat.getText().toString();
@@ -77,11 +85,21 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (!task.isSuccessful()) {
+
+                                    /* Une erreur est survenue
+                                     * Faire attention aux mdps trop courts !
+                                     */
+
                                     Toast.makeText(PreferDecathlonStoreActivity.this, "Your account was not created", Toast.LENGTH_LONG).show();
                                 }
                                 else {
+
+                                    /* Enregistre les informations sur un utilisateur */
+
                                     writeNewUser(mAuth.getCurrentUser().getUid(), firstname, lastname, email, password, confirmPassword);
+
                                     Toast.makeText(PreferDecathlonStoreActivity.this, "Your account was created", Toast.LENGTH_LONG).show();
+
                                     final Intent intentLogin = new Intent(v.getContext(), LoginActivity.class);
                                     startActivity(intentLogin);
                                 }
@@ -93,6 +111,8 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
         }
 
     }
+
+    /* Enregistre les infos de l'utilisateur dans la base de données */
 
     public void writeNewUser(String userID, String firstname, String lastname, String email, String password, String confirmPassword) {
 
@@ -106,7 +126,6 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
         childUpdates.put("/users/" + userID + "/", userValues);
 
         mDatabase.updateChildren(childUpdates);
-
 
     }
 

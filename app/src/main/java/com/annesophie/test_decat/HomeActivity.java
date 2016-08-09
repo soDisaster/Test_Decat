@@ -6,15 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
-import com.google.firebase.database.ValueEventListener;
+
+
+/* Page d'accueil (quand l'utilisateur s'est connecté) */
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -30,12 +25,13 @@ public class HomeActivity extends AppCompatActivity {
         userName = (TextView)findViewById(R.id.textViewUserName);
 
         Intent intent = getIntent();
-
         firstname = intent.getStringExtra("EXTRA_FIRSTNAME");
         lastname = intent.getStringExtra("EXTRA_LASTNAME");
         userName.setText("Hello " + firstname + " " + lastname + " !");
 
     }
+
+    /* Au clic sur le bouton Déconnexion */
 
     public void goToLogin(View v){
         FirebaseAuth.getInstance().signOut();

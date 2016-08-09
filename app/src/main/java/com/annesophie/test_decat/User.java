@@ -5,9 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Anne-So on 07/08/2016.
- */
+/* Classe User */
 
 @IgnoreExtraProperties
 public class User {

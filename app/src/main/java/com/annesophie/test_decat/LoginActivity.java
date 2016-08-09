@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
         buttonCreateAccount = (Button) findViewById(R.id.buttonCreateAccount);
         buttonCreateAccount.setOnClickListener(this);
 
-        // Bouton pour se loguer.
+        // Bouton pour se loger.
 
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(this);
@@ -119,15 +119,21 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                                     Toast.makeText(LoginActivity.this, "Invalid user/password", Toast.LENGTH_LONG).show();
                                 } else {
 
+                                    /* Récupère l'id de l'utilisateur courant */
+
                                     String userID = mAuth.getCurrentUser().getUid();
 
                                     mDatabase.child("users").child(userID).addListenerForSingleValueEvent(
                                             new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                                                    /* Récupère les informations sur l'user à un moment donné */
                                                     user = dataSnapshot.getValue(User.class);
+
                                                     firstname = user.getFirstname();
                                                     lastname = user.getLastname();
+
                                                     final Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
                                                     Bundle extras = new Bundle();
                                                     extras.putString("EXTRA_FIRSTNAME", firstname);

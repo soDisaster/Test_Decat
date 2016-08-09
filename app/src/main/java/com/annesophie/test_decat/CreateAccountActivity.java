@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+/* Classe permettant à l'utilisateur d'entrer les informations le concernant.
+   Etape 1/2
+ */
+
 public class CreateAccountActivity extends AppCompatActivity {
 
     private EditText editTextFirstname, editTextLastname, editTextEmail, editTextPassword, editTextConfirmPassword;
@@ -16,6 +20,9 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        /* EditText */
+
         editTextFirstname = (EditText)findViewById(R.id.editTextFirstname);
         editTextLastname = (EditText)findViewById(R.id.editTextLastname);
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
@@ -38,6 +45,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         email = editTextEmail.getText().toString();
         password = editTextPassword.getText().toString();
         confirmPassword = editTextConfirmPassword.getText().toString();
+
+        /* Intent vers PreferDecathlonStoreActivity */
 
         Intent intentNext = new Intent(this, PreferDecathlonStoreActivity.class);
         Bundle extras = new Bundle();
