@@ -5,7 +5,7 @@ import com.annesophie.test_decat.pojo.DataDecathlon;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-/* Interface pour utiliser Retrofit */
+/* Retrofit */
 
 public interface GitHubService {
 

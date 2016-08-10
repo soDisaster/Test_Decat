@@ -7,11 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.annesophie.test_decat.R;
-import com.annesophie.test_decat.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-/* Page d'accueil (quand l'utilisateur est connecté) */
+/* Page de l'utilisateur (quand l'utilisateur vient de se connecter) */
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -24,11 +23,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        /* Le nom de l'utilisateur, son Décathlon préféré et l'adresse correspondante */
+
         textViewUserName = (TextView)findViewById(R.id.textViewUserName);
         textViewDecat = (TextView)findViewById(R.id.textViewDecat);
         textViewAddress = (TextView)findViewById(R.id.textViewAddress);
         textViewCity = (TextView)findViewById(R.id.textViewCity);
         textViewCountry = (TextView)findViewById(R.id.textViewCountry);
+
+        /* On récupère les informations transmises par l'intent */
 
         Intent intent = getIntent();
         firstname = intent.getStringExtra("EXTRA_FIRSTNAME");
@@ -37,6 +40,8 @@ public class HomeActivity extends AppCompatActivity {
         address = intent.getStringExtra("EXTRA_ADDRESS");
         city = intent.getStringExtra("EXTRA_CITY");
         country = intent.getStringExtra("EXTRA_COUNTRY");
+
+        /* On modifie les textView pour obtenir les informations sur le layout */
 
         textViewUserName.setText("Hello " + firstname + " " + lastname + " !");
         textViewDecat.setText(decat);
@@ -47,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    /* Au clic sur le bouton Déconnexion */
+    /* Au clic sur le bouton Logout */
 
     public void goToLogin(View v){
         FirebaseAuth.getInstance().signOut();

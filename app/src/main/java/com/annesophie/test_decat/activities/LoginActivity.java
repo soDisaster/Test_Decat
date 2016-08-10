@@ -32,6 +32,11 @@ import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/*
+    Page d'accueil
+    On peut à partir de cette page se loger ou créer un compte
+ */
+
 public class LoginActivity extends AppCompatActivity implements OnClickListener{
 
     private Button buttonCreateAccount, buttonLogin;
@@ -63,6 +68,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
         buttonLogin.setOnClickListener(this);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+
+        // Firebase
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -144,22 +151,41 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
                                                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
 
                                                     /* Récupère les informations sur l'user à un moment donné */
+
                                                     user = dataSnapshot.getValue(User.class);
+
+                                                    // Informations de l'utilisateur
 
                                                     firstname = user.getFirstname();
                                                     lastname = user.getLastname();
                                                     namePreferDecat = user.getNamePreferDecat();
 
+                                                    // Variable pour accéder au service
+
                                                     retrofit = new Retrofit.Builder()
                                                             .baseUrl("https://dktmobile.oxylane.com/backofficemobile-server-mvc/service/")
                                                             .addConverterFactory(GsonConverterFactory.create())
                                                             .build();
+
                                                     service = retrofit.create(GitHubService.class);
+
+                                                    /*
+                                                        Appel au service
+                                                        On récupère les informations d'un magasin en fonction du nom
+                                                        du magasin préféré choisi par l'utilisateur lors de la création de son compte
+                                                     */
+
                                                     Call<DataDecathlon> call = service.groupListNameDecat();
                                                     call.enqueue(new Callback<DataDecathlon>() {
                                                         @Override
                                                         public void onResponse(Call<DataDecathlon> call, Response<DataDecathlon> response) {
+
+                                                            // Informations du magasin en fonction de son nom
+
                                                             ArrayList<String> storeInformation = response.body().getData().getStoreInformation(namePreferDecat);
+
+                                                            // Intent
+
                                                             final Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
                                                             Bundle extras = new Bundle();
                                                             extras.putString("EXTRA_FIRSTNAME", firstname);

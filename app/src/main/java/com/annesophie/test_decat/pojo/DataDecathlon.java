@@ -3,7 +3,9 @@ package com.annesophie.test_decat.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/* Classe créée à l'aide de http://www.jsonschema2pojo.org/ */
+/* Classe créée à l'aide de http://www.jsonschema2pojo.org/
+   Retrofit
+*/
 
 public class DataDecathlon {
 

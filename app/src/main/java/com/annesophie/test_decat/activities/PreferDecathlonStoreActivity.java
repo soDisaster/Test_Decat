@@ -89,23 +89,43 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
 
     }
 
+    /*
+        Méthode permettant d'appeler le service et de récupérer les données
+        Utilisation de Retrofit
+    */
+
     public void JsonDecathlon(){
+
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://dktmobile.oxylane.com/backofficemobile-server-mvc/service/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(GitHubService.class);
+
+        /*
+            On récupère les différents magasins Décathlon et ensuite leur nom
+         */
+
+
         Call<DataDecathlon> call = service.groupListNameDecat();
         call.enqueue(new Callback<DataDecathlon>() {
             @Override
             public void onResponse(Call<DataDecathlon> call, Response<DataDecathlon> response) {
+
                 ArrayList<String> storesNamesDecathlon = response.body().getData().getStoresDecathlonNames();
+
                 for (int i = 0; i < storesNamesDecathlon.size(); i++) {
+
+                    // On créé les RadioButtons à partir des noms des magasins
+
                     RadioButton rdbtn = new RadioButton(getApplicationContext());
                     rdbtn.setText(storesNamesDecathlon.get(i));
+
                     int textColor = Color.parseColor("#000000");
                     rdbtn.setButtonTintList(ColorStateList.valueOf(textColor));
                     rdbtn.setTextColor(textColor);
+
                     radioGroupDecat.addView(rdbtn);
                 }
                 ((ViewGroup) findViewById(R.id.radioGroupDecat)).addView(radioGroupDecat);
@@ -119,6 +139,7 @@ public class PreferDecathlonStoreActivity extends AppCompatActivity implements V
         });
     }
 
+    // Création du compte
 
     public void onClick(final View v) {
 

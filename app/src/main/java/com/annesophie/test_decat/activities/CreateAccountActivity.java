@@ -7,10 +7,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.annesophie.test_decat.R;
 
-/* Classe permettant à l'utilisateur d'entrer les informations le concernant.
+/*
+   Classe permettant à l'utilisateur d'entrer les informations le concernant.
    Etape 1/2
  */
 
@@ -43,14 +43,15 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-    public void goToNext(View v){
-
-        /*
+    /*
             Vers l'activité PreferDecathlonStoreActivity
             Prochaine étape pour créer un compte.
             Choisir son Décathlon préféré
 
-        */
+    */
+
+
+    public void goToNext(View v){
 
         firstname = editTextFirstname.getText().toString();
         lastname = editTextLastname.getText().toString();
@@ -58,7 +59,13 @@ public class CreateAccountActivity extends AppCompatActivity {
         password = editTextPassword.getText().toString();
         confirmPassword = editTextConfirmPassword.getText().toString();
 
-        if(firstname.equals("") || lastname.equals("")
+        /*
+            Vérification basiques du formulaire
+            Évite que l'appli crash ou qu'un compte utilisateur ne soit pas créé
+            à cause d'un mot de passe trop court par exemple
+         */
+
+        if (firstname.equals("") || lastname.equals("")
                 || email.equals("") || password.equals("") || confirmPassword.equals("") || firstname.equals(" ") || lastname.equals(" ")
                 || email.equals(" ") || password.equals(" ") || confirmPassword.equals(" ") || firstname.isEmpty() || lastname.isEmpty()
                 || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
@@ -66,22 +73,25 @@ public class CreateAccountActivity extends AppCompatActivity {
             Toast.makeText(this, "Please complete text fields which are empty.", Toast.LENGTH_LONG).show();
 
         }
-        else if(!(isValidEmail(email))){
+        else if (!(isValidEmail(email))){
 
             Toast.makeText(this, "The email address is not correct", Toast.LENGTH_LONG).show();
         }
-        else if(!(password.equals(confirmPassword))){
+        else if (!(password.equals(confirmPassword))){
 
             Toast.makeText(this, "The two passwords don't match", Toast.LENGTH_LONG).show();
 
         }
-        else if(password.length() < 6){
+        else if (password.length() < 6){
 
             Toast.makeText(this, "This password is too short", Toast.LENGTH_LONG).show();
         }
         else {
 
-            /* Intent vers PreferDecathlonStoreActivity */
+            /*
+                Si tout est ok on passe à l'activité suivante
+                Intent vers PreferDecathlonStoreActivity
+            */
 
             Intent intentNext = new Intent(this, PreferDecathlonStoreActivity.class);
             Bundle extras = new Bundle();
