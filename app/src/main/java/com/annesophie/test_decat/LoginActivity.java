@@ -20,17 +20,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class LoginActivity extends AppCompatActivity implements OnClickListener{
 
     private Button buttonCreateAccount, buttonLogin;
     private EditText editTextEmail, editTextPassword;
-    private String firstname, lastname, email, password;
+    private String firstname, lastname, email, password, namePreferDecat;
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private User user;
+
+    private Retrofit retrofit;
+    private GitHubService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,13 +144,37 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener{
 
                                                     firstname = user.getFirstname();
                                                     lastname = user.getLastname();
+                                                    namePreferDecat = user.getNamePreferDecat();
 
-                                                    final Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
-                                                    Bundle extras = new Bundle();
-                                                    extras.putString("EXTRA_FIRSTNAME", firstname);
-                                                    extras.putString("EXTRA_LASTNAME", lastname);
-                                                    intentHome.putExtras(extras);
-                                                    startActivity(intentHome);
+                                                    retrofit = new Retrofit.Builder()
+                                                            .baseUrl("https://dktmobile.oxylane.com/backofficemobile-server-mvc/service/")
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
+                                                    service = retrofit.create(GitHubService.class);
+                                                    Call<DataDecathlon> call = service.groupListNameDecat();
+                                                    call.enqueue(new Callback<DataDecathlon>() {
+                                                        @Override
+                                                        public void onResponse(Call<DataDecathlon> call, Response<DataDecathlon> response) {
+                                                            ArrayList<String> storeInformation = response.body().getData().getStoreInformation(namePreferDecat);
+                                                            final Intent intentHome = new Intent(v.getContext(), HomeActivity.class);
+                                                            Bundle extras = new Bundle();
+                                                            extras.putString("EXTRA_FIRSTNAME", firstname);
+                                                            extras.putString("EXTRA_LASTNAME", lastname);
+                                                            extras.putString("EXTRA_DECAT", namePreferDecat);
+                                                            extras.putString("EXTRA_ADDRESS", storeInformation.get(0));
+                                                            extras.putString("EXTRA_CITY", storeInformation.get(1));
+                                                            extras.putString("EXTRA_COUNTRY", storeInformation.get(2));
+                                                            intentHome.putExtras(extras);
+                                                            startActivity(intentHome);
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<DataDecathlon> call, Throwable t) {
+
+                                                            System.out.println("Erreur");
+                                                        }
+                                                    });
+
                                                 }
 
                                                 @Override

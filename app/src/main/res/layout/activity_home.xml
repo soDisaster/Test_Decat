@@ -23,14 +23,60 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:id="@+id/textViewUserName"
                 android:layout_gravity="center"
                 android:text="Hello "
                 android:textStyle="bold"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:gravity="center"
                 android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:text="Your prefer Decathlon is :"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:id="@+id/textViewDecat"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/textViewAddress"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/textViewCity"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/textViewCountry"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="50dp" />
 
             <Button
                 android:layout_width="175dp"

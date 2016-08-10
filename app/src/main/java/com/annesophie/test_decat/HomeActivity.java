@@ -14,20 +14,34 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomeActivity extends AppCompatActivity {
 
 
-    private TextView userName;
-    private String firstname, lastname;
+    private TextView textViewUserName, textViewDecat, textViewAddress, textViewCity, textViewCountry;
+    private String firstname, lastname, decat, address, city, country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        userName = (TextView)findViewById(R.id.textViewUserName);
+        textViewUserName = (TextView)findViewById(R.id.textViewUserName);
+        textViewDecat = (TextView)findViewById(R.id.textViewDecat);
+        textViewAddress = (TextView)findViewById(R.id.textViewAddress);
+        textViewCity = (TextView)findViewById(R.id.textViewCity);
+        textViewCountry = (TextView)findViewById(R.id.textViewCountry);
 
         Intent intent = getIntent();
         firstname = intent.getStringExtra("EXTRA_FIRSTNAME");
         lastname = intent.getStringExtra("EXTRA_LASTNAME");
-        userName.setText("Hello " + firstname + " " + lastname + " !");
+        decat = intent.getStringExtra("EXTRA_DECAT");
+        address = intent.getStringExtra("EXTRA_ADDRESS");
+        city = intent.getStringExtra("EXTRA_CITY");
+        country = intent.getStringExtra("EXTRA_COUNTRY");
+
+        textViewUserName.setText("Hello " + firstname + " " + lastname + " !");
+        textViewDecat.setText(decat);
+        textViewAddress.setText(address);
+        textViewCity.setText(city);
+        textViewCountry.setText(country);
+
 
     }
 

@@ -38,6 +38,23 @@ public class Data {
 
     /**
      *
+     * @return
+     * The stores information with name
+     */
+    public ArrayList<String> getStoreInformation(String nameDecat) {
+        ArrayList<String> informationStore = new ArrayList<>();
+        for ( Store s : stores ) {
+            if(s.getName().equals(nameDecat)) {
+                informationStore.add(s.getAddress());
+                informationStore.add(s.getCity());
+                informationStore.add(s.getCountry());
+            }
+        }
+        return informationStore;
+    }
+
+    /**
+     *
      * @param stores
      * The stores
      */
