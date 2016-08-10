@@ -81,7 +81,7 @@
             <Button
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:text="Déconnexion"
+                android:text="Logout"
                 android:id="@+id/buttonLogout"
                 android:layout_gravity="center"
                 android:background="#0080ff"
