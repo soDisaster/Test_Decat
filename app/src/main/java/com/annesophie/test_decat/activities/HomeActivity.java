@@ -1,4 +1,4 @@
-package com.annesophie.test_decat;
+package com.annesophie.test_decat.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.annesophie.test_decat.R;
+import com.annesophie.test_decat.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 

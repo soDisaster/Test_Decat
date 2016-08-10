@@ -1,4 +1,4 @@
-package com.annesophie.test_decat;
+package com.annesophie.test_decat.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.annesophie.test_decat.R;
 
 /* Classe permettant à l'utilisateur d'entrer les informations le concernant.
    Etape 1/2

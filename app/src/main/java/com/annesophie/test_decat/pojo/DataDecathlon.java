@@ -1,4 +1,4 @@
-package com.annesophie.test_decat;
+package com.annesophie.test_decat.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

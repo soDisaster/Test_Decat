@@ -1,4 +1,4 @@
-package com.annesophie.test_decat;
+package com.annesophie.test_decat.activities;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -14,7 +14,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.annesophie.test_decat.interfaces.GitHubService;
+import com.annesophie.test_decat.R;
 import com.annesophie.test_decat.classes.User;
+import com.annesophie.test_decat.pojo.DataDecathlon;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

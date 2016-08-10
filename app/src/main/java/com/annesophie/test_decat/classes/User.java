@@ -1,4 +1,4 @@
-package com.annesophie.test_decat;
+package com.annesophie.test_decat.classes;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
